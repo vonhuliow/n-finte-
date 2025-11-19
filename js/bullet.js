@@ -248,7 +248,7 @@ const b = {
         let i = bullet.length;
         while (i--) {
             if (bullet[i].endCycle < simulation.cycle) {
-                bullet[i].onEnd(i); //some bullets do stuff on end
+                if (bullet[i].onEnd) bullet[i].onEnd(i); //some bullets do stuff on end
                 if (bullet[i]) {
                     Matter.Composite.remove(engine.world, bullet[i]);
                     bullet.splice(i, 1);
@@ -295,7 +295,7 @@ const b = {
     fireAttributes(dir, rotate = true) {
         if (rotate) {
             return {
-                // density: 0.0015,			//frictionAir: 0.01,			//restitution: 0,
+                // density: 0.0015,                     //frictionAir: 0.01,                    //restitution: 0,
                 angle: dir,
                 friction: 0.5,
                 frictionAir: 0,
@@ -311,7 +311,7 @@ const b = {
             };
         } else {
             return {
-                // density: 0.0015,			//frictionAir: 0.01,			//restitution: 0,
+                // density: 0.0015,                     //frictionAir: 0.01,                    //restitution: 0,
                 inertia: Infinity, //prevents rotation
                 angle: dir,
                 friction: 0.5,
@@ -2999,7 +2999,7 @@ const b = {
         const size = 4
         if (bIndex < 500) { //can't make over 500 spores
             bullet[bIndex] = Bodies.polygon(where.x, where.y, size, size, {
-                // density: 0.0015,			//frictionAir: 0.01,
+                // density: 0.0015,                     //frictionAir: 0.01,
                 inertia: Infinity,
                 isFreeze: tech.isSporeFreeze,
                 restitution: 0.5,
